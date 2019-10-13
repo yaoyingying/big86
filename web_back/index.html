@@ -143,46 +143,77 @@
     // 1 给页面的退出按钮设置点击事件
     //    - 退出按钮没有类名或id，可以自己设置id进行获取
     //    - 将href设置为javascript:;
-    $('#logout').on('click', function () {
-      // 显示模态框
-      $('#myModal').modal('show');
-    });
+    // $('#logout').on('click', function () {
+    //   // 显示模态框
+    //   $('#myModal').modal('show');
+    // });
 
 
-    // 2 给模态框中的确认退出按钮设置点击事件
-    //    - 不好获取，设置一个id即可 quit
-    $('#quit').on('click', function () {
-      user.logout({
-        callback: function (res) {
-          // 检测
-          if (res.code === 200) {
-            location.href = './login.html';
+    // // 2 给模态框中的确认退出按钮设置点击事件
+    // //    - 不好获取，设置一个id即可 quit
+    // $('#quit').on('click', function () {
+    //   user.logout({
+    //     callback: function (res) {
+    //       // 检测
+    //       if (res.code === 200) {
+    //         location.href = './login.html';
+    //       }
+    //     }
+    //   })
+    // });
+
+
+    // // 制作用户信息展示功能
+    // // 1 页面加载时直接请求用户数据
+    // // 2 将数据填写到页面的对应位置即可
+    // user.getInfo({
+    //   callback: function (res) {
+    //     // 检测
+    //     if (res.code === 200) {
+    //       // 保存data
+    //       var data = res.data;
+    //       // 修改对应的结构
+    //       //  左侧菜单中的用户信息：
+    //       $('.user_info img').prop('src', data.user_pic)
+    //         .next().text('欢迎  ' + data.nickname);
+    //       //  右侧顶部的用户头像：
+    //       $('.user_center_link img').prop('src', data.user_pic);
+    //     }
+    //   }
+    // });
+
+     //制作退出功能 
+        //1.给退出按钮设置点击事件 退出的按钮没有id 所以要手动设置 将herf设置为Javascript
+        $('#logout').on('click',function(){
+          //只需显示模态型
+          $('#myModal').modal('show');
+        })
+        //2.给模态框中的确认退出按钮设置点击事件
+        $('#quit').on('click',function(){
+          user.logout({
+            callback :function(res){
+              if(res.code === 200){
+                location.herf = './login.html';
+              }
+            }
+          })
+        })
+        //3.页面加载时直接请求用户数据
+        user.getInfo ({
+          callback :function(res) {
+            if (res.code === 200) {
+              var data = res.data;
+              //修改对应结构
+              //左侧菜单中的用户信息
+              $('.user_info img').prop('src',data.user_pic).next().text('欢迎'+data.nickname);
+              //右侧菜单中顶部的用户头像
+              $('.user_center_link img').prop('src',data.user_pic);
+
+            }
           }
-        }
-      })
-    });
-
-
-    // 制作用户信息展示功能
-    // 1 页面加载时直接请求用户数据
-    // 2 将数据填写到页面的对应位置即可
-    user.getInfo({
-      callback: function (res) {
-        // 检测
-        if (res.code === 200) {
-          // 保存data
-          var data = res.data;
-          // 修改对应的结构
-          //  左侧菜单中的用户信息：
-          $('.user_info img').prop('src', data.user_pic)
-            .next().text('欢迎  ' + data.nickname);
-          //  右侧顶部的用户头像：
-          $('.user_center_link img').prop('src', data.user_pic);
-        }
-      }
-    });
-
-    
+        });
+        
+         
 
   </script>
 
